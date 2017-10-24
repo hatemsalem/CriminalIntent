@@ -8,9 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,11 +78,15 @@ public class CrimeListFragment extends Fragment
     {
         protected TextView crimeTitle;
         protected TextView crimeDate;
+        protected ImageView crimeSolved;
 
         public void bind(Crime crime)
         {
             crimeTitle.setText(crime.getTitle());
             crimeDate.setText(crime.getDate().toString());
+            crimeDate.setText(DateFormat.getLongDateFormat(getActivity()).format(crime.getDate()));
+            crimeSolved.setVisibility(crime.isSolved()?View.VISIBLE:View.GONE);
+
         }
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent)
@@ -88,6 +94,7 @@ public class CrimeListFragment extends Fragment
             super(inflater.inflate(R.layout.list_item_crime,parent,false));
             crimeTitle=itemView.findViewById(R.id.crimeTitle);
             crimeDate=itemView.findViewById(R.id.crimeDate);
+            crimeSolved=itemView.findViewById(R.id.crimeSolved);
             itemView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
