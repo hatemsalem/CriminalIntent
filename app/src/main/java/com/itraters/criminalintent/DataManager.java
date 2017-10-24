@@ -2,6 +2,7 @@ package com.itraters.criminalintent;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by hasalem on 10/23/2017.
@@ -40,5 +41,16 @@ public class DataManager
     public List<Crime> getCrimes()
     {
         return crimes;
+    }
+
+    public Crime findCrimeById(UUID id)
+    {
+
+        for(Crime crime:crimes)
+        {
+            if(crime.getId().equals(id))
+                return crime;
+        }
+        return null;
     }
 }
