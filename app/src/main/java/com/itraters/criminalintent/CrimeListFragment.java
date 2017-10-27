@@ -13,6 +13,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class CrimeListFragment extends Fragment
         View view=inflater.inflate(R.layout.fragment_crime_list,container,false);
         crimesRecyclerView=view.findViewById(R.id.recyclerView);
         crimesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         return view;
     }
 
@@ -54,7 +56,7 @@ public class CrimeListFragment extends Fragment
         else
         {
             adapter.notifyDataSetChanged();
-            adapter.notifyItemChanged(lastViewedPosition);
+//            adapter.notifyItemChanged(lastViewedPosition);
 
         }
 
@@ -90,7 +92,7 @@ public class CrimeListFragment extends Fragment
                 @Override
                 public void onClick(View v)
                 {
-                   startActivity( CrimeActivity.newIntent(getActivity(),crime.getId()));
+                   startActivity( CrimePagerActivity.newIntent(getActivity(),position));
                     lastViewedPosition=position;
                 }
             });

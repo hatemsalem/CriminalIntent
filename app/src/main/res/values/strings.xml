@@ -4,4 +4,7 @@
     <string name="crimeTitleLabel">Title</string>
     <string name="crimeDetailsLabel">Details</string>
     <string name="crimeSolvedLabel">Solved</string>
+    <string name="firstButton">First</string>
+    <string name="lastButton">Last</string>
+    <string name="datePickerTitle">Date of Crime:</string>
 </resources>
