@@ -75,7 +75,6 @@ public class CrimeListFragment extends Fragment
             this.crime=crime;
             this.position=position;
             crimeTitle.setText(crime.getTitle());
-            crimeDate.setText(crime.getDate().toString());
             crimeDate.setText(DateFormat.getLongDateFormat(getActivity()).format(crime.getDate()));
             crimeSolved.setVisibility(crime.isSolved()?View.VISIBLE:View.GONE);
 

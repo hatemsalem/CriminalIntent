@@ -6,11 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
@@ -34,10 +36,14 @@ public class DatePickerFragment extends DialogFragment
         fragement.setArguments(args);
         return  fragement;
     }
+
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
+
         View v=LayoutInflater.from(getActivity()).inflate(R.layout.dialog_date,null);
         Date date=(Date)getArguments().getSerializable(ARG_DATE);
         Calendar cal=Calendar.getInstance();
@@ -55,8 +61,12 @@ public class DatePickerFragment extends DialogFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        Date date=new GregorianCalendar(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth()).getTime();
-                        sendResult(Activity.RESULT_OK,date);
+                        Calendar cal=Calendar.getInstance();
+                        cal.setTime((Date)getArguments().getSerializable(ARG_DATE));
+                        cal.set(Calendar.YEAR,datePicker.getYear());
+                        cal.set(Calendar.MONTH,datePicker.getMonth());
+                        cal.set(Calendar.DAY_OF_MONTH,datePicker.getDayOfMonth());
+                        sendResult(Activity.RESULT_OK,cal.getTime());
 
                     }
                 })

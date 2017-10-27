@@ -7,4 +7,5 @@
     <string name="firstButton">First</string>
     <string name="lastButton">Last</string>
     <string name="datePickerTitle">Date of Crime:</string>
+    <string name="timePickerTitle">Time of Crime:</string>
 </resources>

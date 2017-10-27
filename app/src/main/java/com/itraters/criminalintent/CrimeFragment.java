@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,12 @@ public class CrimeFragment extends Fragment
 {
     private static final String ARG_CRIME_ID="crimeId";
     private static final String DIALOG_DATE="DialogDate";
+    private static final String DIALOG_TIME="DialogTime";
     private static final int REQUEST_DATE=0;
+    private static final int REQUEST_TIME=1;
     private Crime crime;
     private Button dateButton;
+    private Button timeButton;
     private EditText titleField;
     private CheckBox solvedCheckBox;
 
@@ -59,6 +63,7 @@ public class CrimeFragment extends Fragment
 
         View v=inflater.inflate(R.layout.fragment_crime,container,false);
         dateButton=(Button)v.findViewById(R.id.crimeDate);
+        timeButton=(Button)v.findViewById(R.id.crimeTime);
         updateDate();
         dateButton.setOnClickListener(new OnClickListener()
         {
@@ -69,6 +74,17 @@ public class CrimeFragment extends Fragment
                 DatePickerFragment dialog=DatePickerFragment.newInstance(crime.getDate());
                 dialog.setTargetFragment(CrimeFragment.this,REQUEST_DATE);
                 dialog.show(fm,DIALOG_DATE);
+            }
+        });
+        timeButton.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                FragmentManager fm=getFragmentManager();
+                TimePickerFragment dialog=TimePickerFragment.newInstance(crime.getDate());
+                dialog.setTargetFragment(CrimeFragment.this,REQUEST_TIME);
+                dialog.show(fm,DIALOG_TIME);
             }
         });
         titleField =(EditText) v.findViewById(R.id.crimeTitle);
@@ -117,11 +133,20 @@ public class CrimeFragment extends Fragment
             crime.setDate(date);
             updateDate();
         }
-        super.onActivityResult(requestCode, resultCode, data);
+        else if(resultCode== Activity.RESULT_OK && requestCode==REQUEST_TIME)
+        {
+            Date date=(Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            crime.setDate(date);
+            updateDate();
+        }
+
+
+//        super.onActivityResult(requestCode, resultCode, data);
 
     }
     private void updateDate()
     {
-        dateButton.setText(crime.getDate().toString());
+        dateButton.setText(DateFormat.getLongDateFormat(getActivity()).format(crime.getDate()));
+        timeButton.setText(DateFormat.getTimeFormat(getActivity()).format(crime.getDate()));
     }
 }
