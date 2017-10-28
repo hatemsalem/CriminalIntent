@@ -55,7 +55,7 @@ public class CrimeFragment extends Fragment
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        crime=DataManager.getInstance().findCrimeById((UUID)getArguments().getSerializable(ARG_CRIME_ID));
+        crime=DataManager.getInstance(getActivity()).findCrimeById((UUID)getArguments().getSerializable(ARG_CRIME_ID));
         setHasOptionsMenu(true);
     }
 
@@ -141,13 +141,20 @@ public class CrimeFragment extends Fragment
         switch (item.getItemId())
         {
             case R.id.mnuCrimeDelete:
-                DataManager.getInstance().removeCrime(crime);
+                DataManager.getInstance(getActivity()).removeCrime(crime);
                 getActivity().finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        DataManager.getInstance(getActivity()).updateCrime(crime);
     }
 
     @Override

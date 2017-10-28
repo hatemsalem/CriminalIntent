@@ -165,19 +165,19 @@ public class CrimeListFragment extends Fragment
         @Override
         public void onBindViewHolder(CrimeHolder holder, int position)
         {
-            holder.bind(DataManager.getInstance().getCrimes().get(position),position);
+            holder.bind(DataManager.getInstance(getActivity()).getCrimes().get(position),position);
         }
 
         @Override
         public int getItemCount()
         {
-            return DataManager.getInstance().getCrimes().size();
+            return DataManager.getInstance(getActivity()).getCrimes().size();
         }
 
         @Override
         public int getItemViewType(int position)
         {
-            Crime crime=DataManager.getInstance().getCrimes().get(position);
+            Crime crime=DataManager.getInstance(getActivity()).getCrimes().get(position);
             if(crime.isRequirePolice())
             {
                 return 1;
@@ -205,8 +205,8 @@ public class CrimeListFragment extends Fragment
         switch (item.getItemId())
         {
             case R.id.mnuNewCrime:
-                DataManager.getInstance().addCrime(new Crime());
-                Intent intent=CrimePagerActivity.newIntent(getActivity(),DataManager.getInstance().getCrimes().size()-1);
+                DataManager.getInstance(getActivity()).addCrime(new Crime());
+                Intent intent=CrimePagerActivity.newIntent(getActivity(),DataManager.getInstance(getActivity()).getCrimes().size()-1);
                 startActivity(intent);
                 return true;
             case R.id.mnuShowSubtitle:
@@ -223,7 +223,7 @@ public class CrimeListFragment extends Fragment
         String subtitle=null;
         if(subtitleVisible)
         {
-            int crimeCount = DataManager.getInstance().getCrimes().size();
+            int crimeCount = DataManager.getInstance(getActivity()).getCrimes().size();
             subtitle =getResources().getQuantityString(R.plurals.pluralSubtitle,crimeCount,crimeCount);
                     getString(R.string.mnuSubtitleFormat, crimeCount);
         }

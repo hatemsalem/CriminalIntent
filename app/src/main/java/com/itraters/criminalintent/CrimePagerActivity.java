@@ -48,7 +48,7 @@ public class CrimePagerActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                viewPager.setCurrentItem(DataManager.getInstance().getCrimes().size()-1);
+                viewPager.setCurrentItem(DataManager.getInstance(CrimePagerActivity.this).getCrimes().size()-1);
             }
         });
 
@@ -58,13 +58,13 @@ public class CrimePagerActivity extends AppCompatActivity
             @Override
             public Fragment getItem(int position)
             {
-                return CrimeFragment.newInstance(DataManager.getInstance().getCrimes().get(position).getId());
+                return CrimeFragment.newInstance(DataManager.getInstance(CrimePagerActivity.this).getCrimes().get(position).getId());
             }
 
             @Override
             public int getCount()
             {
-                return DataManager.getInstance().getCrimes().size();
+                return DataManager.getInstance(CrimePagerActivity.this).getCrimes().size();
             }
         });
 
@@ -87,7 +87,7 @@ public class CrimePagerActivity extends AppCompatActivity
             firstButton.setEnabled(false);
         else
             firstButton.setEnabled(true);
-        if(position==DataManager.getInstance().getCrimes().size()-1)
+        if(position==DataManager.getInstance(CrimePagerActivity.this).getCrimes().size()-1)
             lastButton.setEnabled(false);
         else
             lastButton.setEnabled(true);
