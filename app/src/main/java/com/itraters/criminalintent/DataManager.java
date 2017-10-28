@@ -23,7 +23,7 @@ public class DataManager
     }
     private DataManager()
     {
-        buildMocks();
+//        buildMocks();
     }
 
     private void buildMocks()
@@ -52,5 +52,14 @@ public class DataManager
                 return crime;
         }
         return null;
+    }
+    public Crime addCrime(Crime crime)
+    {
+        crimes.add(crime);
+        return crime;
+    }
+    public void removeCrime(Crime crime)
+    {
+        crimes.remove(crime);
     }
 }

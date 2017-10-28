@@ -5,12 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +31,24 @@ public class CrimeListFragment extends Fragment
     private RecyclerView crimesRecyclerView;
     private CrimeAdapter adapter;
     private int lastViewedPosition=0;
+    private boolean subtitleVisible=false;
+    private TextView textView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null)
+            subtitleVisible=savedInstanceState.getBoolean("subtitleVisible",false);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("subtitleVisible",subtitleVisible);
+    }
+
 
     @Nullable
     @Override
@@ -34,8 +56,9 @@ public class CrimeListFragment extends Fragment
     {
         View view=inflater.inflate(R.layout.fragment_crime_list,container,false);
         crimesRecyclerView=view.findViewById(R.id.recyclerView);
+        textView=view.findViewById(R.id.textView);
         crimesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -59,7 +82,20 @@ public class CrimeListFragment extends Fragment
 //            adapter.notifyItemChanged(lastViewedPosition);
 
         }
+        if(adapter.getItemCount()==0)
+        {
 
+            textView.setVisibility(View.VISIBLE);
+            crimesRecyclerView.setVisibility(View.GONE);
+
+            //TODO:
+        }
+        else
+        {
+            textView.setVisibility(View.GONE);
+            crimesRecyclerView.setVisibility(View.VISIBLE);
+        }
+        updateSubtitle();
     }
 
     private class CrimeHolder extends ViewHolder
@@ -149,4 +185,49 @@ public class CrimeListFragment extends Fragment
             return 0;
         }
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list,menu);
+        MenuItem subtitleItem=(MenuItem)menu.findItem(R.id.mnuShowSubtitle);
+        if(subtitleVisible)
+            subtitleItem.setTitle(R.string.mnuHideSubtitle);
+        else
+            subtitleItem.setTitle(R.string.mnuShowSubtitle);
+        updateSubtitle();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.mnuNewCrime:
+                DataManager.getInstance().addCrime(new Crime());
+                Intent intent=CrimePagerActivity.newIntent(getActivity(),DataManager.getInstance().getCrimes().size()-1);
+                startActivity(intent);
+                return true;
+            case R.id.mnuShowSubtitle:
+                subtitleVisible=!subtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    private void updateSubtitle()
+    {
+        String subtitle=null;
+        if(subtitleVisible)
+        {
+            int crimeCount = DataManager.getInstance().getCrimes().size();
+            subtitle =getResources().getQuantityString(R.plurals.pluralSubtitle,crimeCount,crimeCount);
+                    getString(R.string.mnuSubtitleFormat, crimeCount);
+        }
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(subtitle);
+    }
+
 }

@@ -8,4 +8,13 @@
     <string name="lastButton">Last</string>
     <string name="datePickerTitle">Date of Crime:</string>
     <string name="timePickerTitle">Time of Crime:</string>
+    <string name="mnuNewCrime">New Crime </string>
+    <string name="mnuShowSubtitle">Show Subtitle</string>
+    <string name="mnuHideSubtitle">Hide Subtitle</string>
+    <string name="mnuSubtitleFormat">%1$d Crimes</string>
+    <string name="mnuDeleteCrime">Delete Crime</string>
+    <plurals name="pluralSubtitle">
+        <item quantity="one">%1$d crime</item>
+        <item quantity="other">%1$d crimes</item>
+    </plurals>
 </resources>
