@@ -50,4 +50,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/crimeSolvedLabel"/>
+
+    <Button
+        android:id="@+id/btnSuspect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/suspectButton"/>
+
+    <Button
+        android:id="@+id/btnReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reportButton"/>
+
+    <Button
+        android:id="@+id/btnCallSuspect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/callSuspect"/>
 </LinearLayout>

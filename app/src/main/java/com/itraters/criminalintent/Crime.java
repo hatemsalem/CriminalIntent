@@ -14,6 +14,8 @@ public class Crime
     private Date date;
     private boolean solved;
     private boolean requirePolice;
+    private String suspect;
+    private String suspectPhone;
 
     public Crime()
     {
@@ -68,5 +70,25 @@ public class Crime
     public void setRequirePolice(boolean requirePolice)
     {
         this.requirePolice = requirePolice;
+    }
+
+    public String getSuspect()
+    {
+        return suspect;
+    }
+
+    public void setSuspect(String suspect)
+    {
+        this.suspect = suspect;
+    }
+
+    public String getSuspectPhone()
+    {
+        return suspectPhone;
+    }
+
+    public void setSuspectPhone(String suspectPhone)
+    {
+        this.suspectPhone = suspectPhone;
     }
 }
