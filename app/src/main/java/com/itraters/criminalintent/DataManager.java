@@ -10,6 +10,7 @@ import com.itraters.criminalintent.db.CrimeCursorWrapper;
 import com.itraters.criminalintent.db.CrimeDbSchema;
 import com.itraters.criminalintent.db.CrimeDbSchema.CrimeTable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -107,5 +108,10 @@ public class DataManager
         values.put(CrimeTable.Cols.SUSPECT_PHONE,crime.getSuspectPhone());
 
         return  values;
+    }
+    File getPhotoFile(Crime crime)
+    {
+        File filesDir=ctx.getFilesDir();
+        return new File(filesDir,crime.getPhotoFileName());
     }
 }

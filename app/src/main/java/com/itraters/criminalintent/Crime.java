@@ -91,4 +91,9 @@ public class Crime
     {
         this.suspectPhone = suspectPhone;
     }
+
+    public String getPhotoFileName()
+    {
+        return "IMG_"+getId().toString()+".jpg";
+    }
 }
