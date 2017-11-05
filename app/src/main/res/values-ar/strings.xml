@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الجريمة لا تفيد</string>
+    <string name="crimeTitleHint">أدخل عنوان الجريمة</string>
+    <string name="crimeTitleLabel">العنوان</string>
+    <string name="crimeDetailsLabel">التفاصيل</string>
+    <string name="crimeSolvedLabel">تم حلها</string>
+    <string name="firstButton">الأول</string>
+    <string name="lastButton">الأخير</string>
+    <string name="datePickerTitle">تاريخ الجريمة:</string>
+    <string name="timePickerTitle">وقت الجريمة:</string>
+    <string name="mnuNewCrime">جريمة جديدة</string>
+    <string name="mnuShowSubtitle">إظهار العنوان الفرعي</string>
+    <string name="mnuHideSubtitle">إخفاء العنوان الفرعي</string>
+    <string name="callSuspect">الاتصال بالمشتبه به</string>
+    <string name="sendReport">إرسال تقرير الجريمة عن طريق</string>
+    <string name="crimeReportSubject">تقرير الجريمة</string>
+    <string name="crimeReportNoSuspect">لا يوجد مشتبه به</string>
+    <string name="crimeReportSuspect">المستبه به هو %s</string>
+    <string name="crimeReportUnsolved">القضية لم تحل</string>
+    <string name="crimeReportSolved">تم حل القضية</string>
+    <string name="reportButton">إرسال تقرير الجريمة</string>
+    <string name="suspectButton">اختيار مشتبه به</string>
+    <string name="mnuDeleteCrime">حذف جريمة</string>
+</resources>
