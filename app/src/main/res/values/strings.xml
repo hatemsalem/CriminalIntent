@@ -28,4 +28,7 @@
     <string name="crimeReportSubject">Criminal Intent Report</string>
     <string name="sendReport">Send crime report via</string>
     <string name="callSuspect">Call Suspect</string>
+    <string name="crimePhotoButtonDesc">Take photo of crime scene</string>
+    <string name="noCrimePhotoDesc">Crime Scene photo (not set)</string>
+    <string name="crimePhotoDesc">Crime Scene photo (set)</string>
 </resources>

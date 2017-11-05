@@ -372,12 +372,14 @@ public class CrimeFragment extends Fragment
         if(photoFile==null||!photoFile.exists())
         {
             imageView.setImageDrawable(null);
+            imageView.setContentDescription(getString(R.string.noCrimePhotoDesc));
         }
         else
         {
 //            imageView.setImageBitmap(PictureUtils.getScaledBitmap(photoFile.getPath(),getActivity()));
             imageView.setImageBitmap(PictureUtils.getScaledBitmap(photoFile.getPath(),imageView.getWidth(),imageView.getHeight()));
             Log.d("Layout","Width:"+imageView.getWidth()+",Height:"+imageView.getHeight());
+            imageView.setContentDescription(getString(R.string.crimePhotoDesc));
         }
     }
 

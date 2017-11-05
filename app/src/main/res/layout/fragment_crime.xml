@@ -29,7 +29,8 @@
                 android:id="@+id/imageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_menu_camera"/>
+                app:srcCompat="@android:drawable/ic_menu_camera"
+                android:contentDescription="@string/crimePhotoButtonDesc"/>
         </LinearLayout>
 
         <LinearLayout
@@ -43,7 +44,8 @@
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/crimeTitleLabel"/>
+                android:text="@string/crimeTitleLabel"
+                android:labelFor="@+id/crimeTitle"/>
 
             <EditText
                 android:id="@+id/crimeTitle"
