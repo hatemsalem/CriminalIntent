@@ -1,6 +1,7 @@
 package com.itraters.criminalintent;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -16,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
+import android.telecom.Call;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -68,6 +70,7 @@ public class CrimeFragment extends Fragment
     private EditText titleField;
     private CheckBox solvedCheckBox;
     private File photoFile;
+    private Callbacks callbacks;
     public static CrimeFragment newInstance(UUID crimeId)
     {
 
@@ -183,6 +186,7 @@ public class CrimeFragment extends Fragment
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 crime.setTitle(s.toString());
+                updateCrime();
             }
 
             @Override
@@ -200,6 +204,7 @@ public class CrimeFragment extends Fragment
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
                 crime.setSolved(isChecked);
+                updateCrime();
             }
         });
         imageButton.setOnClickListener(new OnClickListener()
@@ -284,11 +289,13 @@ public class CrimeFragment extends Fragment
                 Date date=(Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
                 crime.setDate(date);
                 updateDate();
+                updateCrime();
                 break;
             case REQUEST_TIME:
                 Date time=(Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
                 crime.setDate(time);
                 updateDate();
+                updateCrime();
                 break;
             case REQUEST_CONTACT:
                 if(data!=null)
@@ -323,11 +330,13 @@ public class CrimeFragment extends Fragment
                         cursor.close();
                     }
                 }
+                updateCrime();
                 break;
             case REQUEST_PHOTO:
                 Uri uri=FileProvider.getUriForFile(getActivity(),"com.itraters.criminalintent.fileprovider",photoFile);
                 getActivity().revokeUriPermission(uri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 updatePhotoView();
+                updateCrime();
                 break;
         }
 
@@ -371,6 +380,9 @@ public class CrimeFragment extends Fragment
             Log.d("Layout","Width:"+imageView.getWidth()+",Height:"+imageView.getHeight());
         }
     }
+
+
+
     private  String getCrimeReport()
     {
         String solvedString=crime.isSolved()?getString(R.string.crimeReportSolved):getString(R.string.crimeReportUnsolved);
@@ -378,5 +390,28 @@ public class CrimeFragment extends Fragment
         String crimeDate=DateFormat.format("EEE , MM dd",crime.getDate()).toString();
         String report=getString(R.string.crimeReport,crime.getTitle(),crimeDate,solvedString,suspectString);
         return report;
+    }
+    public interface Callbacks
+    {
+        void onCrimeUpdated(Crime crime);
+    }
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        callbacks=(Callbacks) context;
+    }
+
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+        callbacks=null;
+    }
+    private void updateCrime()
+    {
+        DataManager.getInstance(getActivity()).updateCrime(crime);
+        callbacks.onCrimeUpdated(crime);
     }
 }

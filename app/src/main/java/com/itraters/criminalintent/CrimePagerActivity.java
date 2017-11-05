@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 
-public class CrimePagerActivity extends AppCompatActivity
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.Callbacks
 {
     ViewPager viewPager;
     Button firstButton;
@@ -91,5 +91,11 @@ public class CrimePagerActivity extends AppCompatActivity
             lastButton.setEnabled(false);
         else
             lastButton.setEnabled(true);
+    }
+
+    @Override
+    public void onCrimeUpdated(Crime crime)
+    {
+
     }
 }
